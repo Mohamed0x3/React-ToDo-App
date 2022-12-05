@@ -65,9 +65,9 @@ class Tasks extends Component {
         {this.state.allTasks
           .filter(
             (task) =>
-              (this.state.filterDone && task.done === true) ||
+              (this.state.filterDone && task.done) ||
               this.state.filterAll ||
-              (this.state.filterTodo && task.done === false)
+              (this.state.filterTodo && !task.done)
           )
           .map((task) => (
             <Task
@@ -122,14 +122,12 @@ class Tasks extends Component {
     e.preventDefault();
     e.preventDefault();
     const task = [this.state.title, this.state.counter + 1, false];
-    // console.log(task);
     if (this.state.title === "") {
       alert("field is empty!");
       return;
     }
     this.handleAddTask(task);
     this.setState({ title: "", value: "" });
-    // console.log(this.state.allTasks);
   };
 
   handleAddTask = (task) => {
@@ -152,7 +150,6 @@ class Tasks extends Component {
 
   handelDeleteDone = () => {
     console.log("onDeleteDone called");
-    console.log(this.state.allTasks);
     const allTasks = this.state.allTasks.filter((c) => c.done === false);
     this.setState({ allTasks });
   };
@@ -160,7 +157,6 @@ class Tasks extends Component {
   // ******************************   Inline Buttons   **********************************
   handleDelete = (taskId) => {
     console.log("onDelete called");
-    console.log(this.state.allTasks);
     const allTasks = this.state.allTasks.filter((c) => c.id !== taskId);
     this.setState({ allTasks });
   };
@@ -171,25 +167,20 @@ class Tasks extends Component {
     this.handleDelete(taskId);
   };
 
-  handleDone = (title, id, done) => {
-    console.log(
-      "onDone called",
-      "Not Working i can't get element index in array (-1)"
-    );
-    // // console.log("allTasks", this.state.allTasks);
-    // const tasks = [...this.state.allTasks];
-    // console.log("Tasks", tasks);
-    // const task = { title, id, done };
-    // console.log("task", task);
-    // const index = this.state.allTasks.indexOf(task);
-    // console.log(index);
-    // // tasks[index].done = !task.done;
-    // // tasks[index] = { ...task };
-    // // console.log("allTasks", this.state.allTasks);
-    // // console.log("Tasks", tasks);
+  handleDone = (id) => {
+    console.log("onDone called");
+    var index = 0;
+    this.state.allTasks.forEach((task, i) => {
+      if (task.id === id) index = i;
+    });
+    let allTasks = [...this.state.allTasks];
+    let task = { ...allTasks[index] };
+    task.done = true;
+    allTasks[index] = task;
+    this.setState({ allTasks });
   };
 
-  // *******************************   Filters   **********************************
+  // ******************************   Filters   **********************************
   handelSeeDone = () => {
     console.log("onSeeDone called");
     this.setState({ filterDone: true, filterAll: false, filterTodo: false });
