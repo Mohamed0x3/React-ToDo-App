@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 
 class Task extends Component {
-  //   state = {
-  //     title: "Task sample",
-  //     id: 1,
-  //     done: false,
-  //   };
   state = {
     title: this.props.task.title,
     id: this.props.task.id,
@@ -13,9 +8,9 @@ class Task extends Component {
   };
 
   render() {
-    let editB;
+    let editButton;
     if (!this.state.done)
-      editB = (
+      editButton = (
         <button
           className="btn btn-warning btn-sm m-1"
           onClick={() => this.props.onEdit(this.state.title, this.state.id)}
@@ -23,7 +18,7 @@ class Task extends Component {
           Edit
         </button>
       );
-    else editB = "";
+    else editButton = "";
     return (
       <div className={this.getBadgeClasses()}>
         <div className="ml-2 align-self-center mr-auto">{this.state.title}</div>
@@ -32,12 +27,11 @@ class Task extends Component {
           className="m-1"
           defaultChecked={this.state.done}
           onClick={() => {
-            this.props.onDone(this.state.title, this.state.id, this.state.done);
+            this.props.onDone(this.state.id);
             this.setState({ done: !this.state.done });
-            console.log(this.state);
           }}
         />
-        {editB}
+        {editButton}
         <button
           className="btn btn-danger btn-sm m-1"
           onClick={() => this.props.onDelete(this.state.id)}
