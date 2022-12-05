@@ -1,9 +1,8 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Tasks from "./compomemts/tasks";
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-warning p-5">
       <Tasks />
     </div>
   );
