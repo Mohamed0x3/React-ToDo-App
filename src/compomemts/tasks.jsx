@@ -189,7 +189,7 @@ class Tasks extends Component {
     // // console.log("Tasks", tasks);
   };
 
-  // ******************************   Filters   **********************************
+  // *******************************   Filters   **********************************
   handelSeeDone = () => {
     console.log("onSeeDone called");
     this.setState({ filterDone: true, filterAll: false, filterTodo: false });
